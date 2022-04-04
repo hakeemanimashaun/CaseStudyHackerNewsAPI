@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
 
   },
   input:{
     margin: 10,
   },
   button:{
-    marginTop: 10,
+    margin: 10,
   }
 })
