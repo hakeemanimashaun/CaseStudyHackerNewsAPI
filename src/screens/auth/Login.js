@@ -1,13 +1,37 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { TextInput, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign'
+import { database } from '../../data/sqliteStorage/database';
+import { createTable } from '../../data/sqliteStorage/database';
+
+
 
 
 
 export default function Login({navigation}) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(0);
+
+ 
+
+  useEffect(()=>{
+    createTable()
+  }, []);
+
+ const navigate = () => {
+   database.transaction( (tx)=>{
+    tx.executeSql(
+      `INSERT INTO Users (email, password) VALUES (?,?)`,
+      [email, password],
+      (sqlTx, res)=>{
+          console.log(`${email, password} added succesfully to Users`)
+          navigation.navigate('Home');
+      },
+      error => {console.log("failed to add because:" + error.message)}
+  )
+   }
+  )
+ };
 
   return (
     <View style={styles.container}>
@@ -33,7 +57,7 @@ export default function Login({navigation}) {
     />
     <Button
     style={styles.button}
-     mode="contained" onPress={() => navigation.navigate('Home')}
+     mode="contained" onPress={()=>navigate()}
     >
       press me
     </Button>

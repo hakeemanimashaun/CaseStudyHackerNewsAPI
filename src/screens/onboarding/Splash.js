@@ -9,7 +9,7 @@ export default function Splash({navigation}) {
       <LottieView 
       source={require('../../../assets/lottieHackerNews.json')} 
       autoPlay 
-      loop='false'
+      loop= {false}
       speed={0.5}  
       onAnimationFinish={()=>navigation.navigate('Login')}/>
     </View>
@@ -19,6 +19,6 @@ export default function Splash({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00ff00'
+    backgroundColor: '#000fff'
   }
 })

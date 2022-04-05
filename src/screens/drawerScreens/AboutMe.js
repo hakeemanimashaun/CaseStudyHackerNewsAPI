@@ -17,7 +17,10 @@ export default function AboutMe({navigation}) {
     <Card.Content>
       <Title style={styles.title}>Hakeem Idrees Animashaun</Title>
       <Paragraph style={styles.text}>
-        I am an adaptable, self motivated leader with 2 years experience in mobile applications development. I employ Standard practices for code structuring and application architecture hence I deliver high quality code that can be managed over a long period. I am no stranger to agile methodologies and have been involved in the app production process from planning till deployment. I am proficient with Android studio for native apps and React native for cross platform production.
+        I am an adaptable, self motivated leader with 2 years experience in mobile applications development.
+         I employ Standard practices for code structuring and application architecture hence I deliver high 
+         quality code that can be managed over a long period. 
+         I am no stranger to agile methodologies and have been involved in the app production process from planning till deployment. I am proficient with Android studio for native apps and React native for cross platform production.
     </Paragraph>
 
     <List.Section title="Technical Skills" titleStyle={{fontWeight: 'bold', fontSize: 20,}}>
@@ -35,7 +38,7 @@ export default function AboutMe({navigation}) {
       <Button onPress={linkedinPressHandler} style={styles.visitButton}>Visit My Linkedin</Button>
     </Card.Content>
     <Card.Actions>
-      <Button onPress={()=> navigation.navigate('Home')} style={styles.button}>back to home</Button>
+      <Button onPress={()=> navigation.navigate('HomePage')} style={styles.button}>back to home</Button>
     </Card.Actions>
   </Card>
     </View>
@@ -68,7 +71,7 @@ const styles =StyleSheet.create({
     marginBottom: 15,
   }, 
   visitButton:{
-    
+
   }, 
   card:{
     alignItems: 'center'

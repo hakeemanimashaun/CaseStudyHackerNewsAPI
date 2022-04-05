@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 function DrawerRoutes(){
   return(
     <Drawer.Navigator>
-      <Drawer.Screen   name='Home'component={Home} options={{
+      <Drawer.Screen   name='HomePage'component={Home} options={{
           headerShown: true
         }}/>
       <Drawer.Screen   name='AboutMe'component={AboutMe} options={{
@@ -54,7 +54,7 @@ const App = () => {
           header: ()=> null
         }}/>
         <Stack.Screen   name='Home' component={DrawerRoutes} options={{
-          headerShown: false
+          headerShown: true
         }}/>
       </Stack.Navigator>
 
