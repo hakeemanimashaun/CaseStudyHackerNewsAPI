@@ -20,6 +20,8 @@ export default function Login({navigation}) {
 
   //this function validates in tecxt input and navigates to home if all conditions are passed
   const loginValidation = () => {
+    
+    
     if (!email) {
       alert(ERRORS.emailError);
       return;
@@ -83,7 +85,7 @@ export default function Login({navigation}) {
         mode="outlined"
         placeholder="enter password"
       />
-      <Button style={styles.button} mode="contained" onPress={() => navigateHomeSaveDb()}>
+      <Button style={styles.button} mode="contained" onPress={() => loginValidation()}>
         Log-in
       </Button>
     </View>
