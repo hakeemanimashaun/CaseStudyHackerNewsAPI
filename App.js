@@ -21,14 +21,16 @@ function DrawerRoutes() {
         name="HomePage"
         component={Home}
         options={{
-          headerShown: false
+          headerShown: true,
+          headerTitle: '',
         }}
       />
       <Drawer.Screen
         name="AboutMe"
         component={AboutMe}
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: '',
         }}
       />
     </Drawer.Navigator>
