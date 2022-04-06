@@ -21,29 +21,29 @@ function DrawerRoutes() {
         name="HomePage"
         component={Home}
         options={{
-          headerShown: true,
+          headerShown: false
         }}
       />
       <Drawer.Screen
         name="AboutMe"
         component={AboutMe}
         options={{
-          headerShown: true,
+          headerShown: false,
         }}
       />
     </Drawer.Navigator>
   );
 }
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  placeholder: '#ff0000',
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
-  },
-};
+// const theme = {
+//   ...DefaultTheme,
+//   roundness: 2,
+//   placeholder: '#ff0000',
+//   colors: {
+//     ...DefaultTheme.colors,
+//     primary: '#3498db',
+//     accent: '#f1c40f',
+//   },
+// };
 
 const App = () => {
   return (

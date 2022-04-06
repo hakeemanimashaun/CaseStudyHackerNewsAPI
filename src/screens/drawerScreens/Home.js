@@ -5,9 +5,12 @@ import {database} from '../../data/sqliteStorage/database';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {NewsDisplayComponent} from '../../components/NewsDisplayComponent';
+import {CONSTANTS} from '../../utils/contants/CONSTANTS';
+import {COLORS} from '../../utils/colors/COLORS';
 
 export default function Home({navigation}) {
   const [isLoading, setIsLoading] = useState(true);
+  const [dbEmail, setDbEmail] = useState('');
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(0);
   const {email, password} = useSelector(state => state.userReducer);
@@ -16,13 +19,10 @@ export default function Home({navigation}) {
     await database.transaction(tx => {
       tx.executeSql('SELECT email, password FROM Users', [], (tx, result) => {
         var len = result.rows.length;
-        console.log(len);
-        console.log(result.rows);
         if (len > 0) {
           let emailSelected = result.rows.item(0).Email;
           let passwordSelected = result.rows.item(0).Password;
-          console.log(emailSelected);
-          console.log('jhg', passwordSelected);
+          setDbEmail(emailSelected);
         }
       });
     });
@@ -34,16 +34,19 @@ export default function Home({navigation}) {
           'DELETE FROM Users',
           [],
           () => {
-            console.log('delete successful');
+            console.log(CONSTANTS.deleteMessage);
+            alert(CONSTANTS.deleteMessage);
             navigation.navigate('Login');
           },
           error => {
             console.log(error);
+            alert(error);
           },
         );
       });
     } catch (error) {
       console.log(error);
+      alert(error);
     }
   };
 
@@ -52,7 +55,6 @@ export default function Home({navigation}) {
       const url = `https://hn.algolia.com/api/v1/search_by_date?numericFilters=points%3E250&page=${page}`;
       const response = await axios.get(url);
       if (response) {
-        // console.log(response.data.hits);
         setNews(response.data.hits);
         setIsLoading(false);
       }
@@ -69,7 +71,7 @@ export default function Home({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to HackerNews</Text>
-      <Text style={styles.title}>{email}</Text>
+      <Text style={styles.titleName}>{email ? email : dbEmail}</Text>
 
       {isLoading ? (
         <ActivityIndicator />
@@ -94,7 +96,7 @@ export default function Home({navigation}) {
       )}
 
       <Button style={styles.button} mode="contained" onPress={() => deleteDB()}>
-        Log-out
+        Log-out(empty database)
       </Button>
     </View>
   );
@@ -107,9 +109,18 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
+    color: COLORS.black,
+    fontWeight: 'bold',
+  },
+  titleName: {
+    fontSize: 15,
+    color: COLORS.black,
+    fontWeight:'normal',
+    fontStyle: 'italic'
   },
   button: {
-    marginBottom: 20,
+    marginTop: 5,
+    backgroundColor: COLORS.black
   },
 });

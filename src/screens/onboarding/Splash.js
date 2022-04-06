@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import LottieView from 'lottie-react-native'
+import { COLORS } from '../../utils/colors/COLORS'
 
 
 export default function Splash({navigation}) {
@@ -19,6 +20,6 @@ export default function Splash({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000fff'
+    backgroundColor: COLORS.blue
   }
 })

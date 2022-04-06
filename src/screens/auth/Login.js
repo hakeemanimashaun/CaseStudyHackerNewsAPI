@@ -78,7 +78,7 @@ export default function Login({navigation}) {
         placeholder="enter password"
       />
       <Button style={styles.button} mode="contained" onPress={() => navigate()}>
-        press me
+        Log-in press
       </Button>
     </View>
   );
