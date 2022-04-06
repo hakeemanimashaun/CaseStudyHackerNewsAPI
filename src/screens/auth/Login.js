@@ -10,7 +10,7 @@ import { createTable } from '../../data/sqliteStorage/database';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(0);
+  const [password, setPassword] = useState('');
 
  
 
@@ -18,20 +18,22 @@ export default function Login({navigation}) {
     createTable()
   }, []);
 
- const navigate = () => {
-   database.transaction( (tx)=>{
-    tx.executeSql(
-      `INSERT INTO Users (email, password) VALUES (?,?)`,
-      [email, password],
-      (sqlTx, res)=>{
-          console.log(`${email, password} added succesfully to Users`)
-          navigation.navigate('Home');
-      },
-      error => {console.log("failed to add because:" + error.message)}
-  )
-   }
-  )
- };
+  const navigate = async () => {
+    try {
+      await database.transaction(async (tx) => {
+        tx.executeSql(
+          "INSERT INTO Users (email, password) VALUES (?,?)",
+          [email, password],
+          (tx, results) => {
+            console.log('Results', results.rowsAffected);
+          }
+        );
+      });
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -48,11 +50,10 @@ export default function Login({navigation}) {
       <TextInput
       style={styles.input}
       label="Password"
-      keyboardType='numbers-and-punctuation'
+      keyboardType='visible-password'
       value={password}
       onChangeText={text => setPassword(text)}
-      mode='outlined'
-      // right={<TextInput.Icon name={'eye'}/>}
+      mode='outlined' 
       placeholder='enter password'
     />
     <Button

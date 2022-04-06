@@ -54,7 +54,7 @@ const App = () => {
           header: ()=> null
         }}/>
         <Stack.Screen   name='Home' component={DrawerRoutes} options={{
-          headerShown: true
+          headerShown: false
         }}/>
       </Stack.Navigator>
 

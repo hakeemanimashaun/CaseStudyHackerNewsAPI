@@ -1,24 +1,22 @@
-import {openDatabase} from "react-native-sqlite-storage";
+import SQlite from 'react-native-sqlite-storage';
 
-//SQlite.enablePromise(true);
-
- export const database = openDatabase(
-    {
-        name: 'hackerNewsDb',
-    }  
-) 
+export const database = SQlite.openDatabase(
+  {
+    name: 'hackerNewsDb',
+    location: 'default',
+  },
+  () => {},
+  error => {
+    console.log(error);
+  },
+);
 
 export const createTable = () => {
-    database.transaction((tx) => {
-        tx.executeSql(
-            `CREATE TABLE IF NOT EXISTS Users (ID INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT, password INTEGER)`,
-            [],
-            (sqlTx, res)=>{
-                console.log(" table created succesfully")
-            },
-            error => {console.log("failed:" + error.message)}
-        )
-    }
-
-    )
-}
+  database.transaction((tx) => {
+    tx.executeSql(
+      "CREATE TABLE IF NOT EXISTS "
+      +"Users"
+      +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, email varChar(20), password varChar(20));",
+    );
+  });
+};
