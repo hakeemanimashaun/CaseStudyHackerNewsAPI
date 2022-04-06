@@ -24,10 +24,10 @@ export default function Login({navigation}) {
       alert('Please enter password digits');
       return;
     }
-    navigate();
+    navigateHome();
   };
 
-  const navigate = async () => {
+  const navigateHome = async () => {
     try {
       await database.transaction(async tx => {
         tx.executeSql(
@@ -77,8 +77,8 @@ export default function Login({navigation}) {
         mode="outlined"
         placeholder="enter password"
       />
-      <Button style={styles.button} mode="contained" onPress={() => navigate()}>
-        Log-in press
+      <Button style={styles.button} mode="contained" onPress={() => navigateHome()}>
+        Log-in
       </Button>
     </View>
   );

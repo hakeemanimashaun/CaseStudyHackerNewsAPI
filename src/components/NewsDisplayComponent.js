@@ -24,7 +24,7 @@ export const NewsDisplayComponent =({heading,url,author,points}) =>{
 
 const styles = StyleSheet.create({
     container:{
-        padding:25,
+        padding:10,
         margin:10,
         borderRadius:5,
         backgroundColor: COLORS.blue,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
      color: COLORS.black
     },
     bodyText:{
-        marginBottom:4,
+        marginVertical:6,
         fontSize:12,
         color: COLORS.white,
         fontWeight:'bold',
