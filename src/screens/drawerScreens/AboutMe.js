@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native'
+import { View, StyleSheet, ScrollView, Linking } from 'react-native'
 import React from 'react'
 import { Card, Title, Paragraph, Button,List } from 'react-native-paper'
+import { CONSTANTS } from '../../utils/contants/CONSTANTS';
 
 export default function AboutMe({navigation}) {
   
-    const linkedinPressHandler = () => Linking.openURL("https://www.linkedin.com/in/hakeem-animashaun-b1600715a")
+    const linkedinPressHandler = () => Linking.openURL(CONSTANTS.linkdinURL);
 
-    const githubPressHandler = () => Linking.openURL("https://github.com/hakeemanimashaun?tab=repositories")
+    const githubPressHandler = () => Linking.openURL(CONSTANTS.githubURL);
 
   return (
     <ScrollView>

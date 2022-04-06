@@ -5,7 +5,7 @@ import {database} from '../../data/sqliteStorage/database';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {NewsDisplayComponent} from '../../components/NewsDisplayComponent';
-import {CONSTANTS} from '../../utils/contants/CONSTANTS';
+import {CONSTANTS, QUERIES, ERRORS} from '../../utils/contants/CONSTANTS';
 import {COLORS} from '../../utils/colors/COLORS';
 
 export default function Home({navigation}) {
@@ -14,11 +14,13 @@ export default function Home({navigation}) {
   const [dbEmail, setDbEmail] = useState('');
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(0);
+  //access redux state
   const {email, password} = useSelector(state => state.userReducer);
 
+  //this function gets user information from the database
   const getUser = async () => {
     await database.transaction(tx => {
-      tx.executeSql('SELECT email, password FROM Users', [], (tx, result) => {
+      tx.executeSql(QUERIES.SelectHome, [], (tx, result) => {
         var len = result.rows.length;
         if (len > 0) {
           let emailSelected = result.rows.item(0).Email;
@@ -28,15 +30,18 @@ export default function Home({navigation}) {
       });
     });
   };
+
+  // this function clears the sql lte databse on press of button logout
+  //it navigates back to login screen after
   const deleteDB = () => {
     try {
       database.transaction(tx => {
         tx.executeSql(
-          'DELETE FROM Users',
+          QUERIES.deleteHome,
           [],
           () => {
-            console.log(CONSTANTS.deleteMessage);
-            alert(CONSTANTS.deleteMessage);
+            console.log(ERRORS.deleteMessage);
+            alert(ERRORS.deleteMessage);
             navigation.navigate('Login');
           },
           error => {
@@ -51,6 +56,7 @@ export default function Home({navigation}) {
     }
   };
 
+// this function makes the api call and gets the api data
   const fetchNews = async () => {
     try {
       const url = `${CONSTANTS.hackerNewsURL}${page}`;
@@ -63,18 +69,22 @@ export default function Home({navigation}) {
       alert(error);
     }
   };
-
+  
+// executes when page first loads
   useEffect(() => {
     getUser();
     fetchNews();
   }, []);
 
+  // this function implements delay
   const wait = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+  //handles the pull to refresh funtion
   const pullToRefresh = useCallback(() => {
     setIsRefreshing(true);
     fetchNews();
     wait(2000).then(() => setIsRefreshing(false));
   },[]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to HackerNews</Text>
