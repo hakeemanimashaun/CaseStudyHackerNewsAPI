@@ -1,9 +1,10 @@
-import {View, Text, StyleSheet, FlatList, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Linking} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Button, ActivityIndicator} from 'react-native-paper';
 import {database} from '../../data/sqliteStorage/database';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
+import {NewsDisplayComponent} from '../../components/NewsDisplayComponent';
 
 export default function Home({navigation}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -75,15 +76,17 @@ export default function Home({navigation}) {
       ) : (
         <FlatList
           data={news}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.7}
           onEndReached={() => setPage(page + 1)}
           renderItem={({item}) => {
             return (
               <View>
-                <Text>{item.title}</Text>
-                <Text>{item.url}</Text>
-                <Text>{item.author}</Text>
-                <Text>{item.points}</Text>
+                <NewsDisplayComponent
+                  heading={item.title}
+                  url={item.url}
+                  author={item.author}
+                  points={item.points}
+                />
               </View>
             );
           }}
