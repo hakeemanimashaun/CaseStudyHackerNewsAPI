@@ -3,15 +3,13 @@ import React, {useState, useEffect} from 'react';
 import {Button, ActivityIndicator} from 'react-native-paper';
 import {database} from '../../data/sqliteStorage/database';
 import axios from 'axios';
-
-
+import {useSelector} from 'react-redux';
 
 export default function Home({navigation}) {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(0);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(0);
+  const {email, password} = useSelector(state => state.userReducer);
 
   const getUser = async () => {
     await database.transaction(tx => {
@@ -24,8 +22,6 @@ export default function Home({navigation}) {
           let passwordSelected = result.rows.item(0).Password;
           console.log(emailSelected);
           console.log('jhg', passwordSelected);
-          setEmail(emailSelected);
-          setPassword(passwordSelected);
         }
       });
     });
@@ -55,7 +51,7 @@ export default function Home({navigation}) {
       const url = `https://hn.algolia.com/api/v1/search_by_date?numericFilters=points%3E250&page=${page}`;
       const response = await axios.get(url);
       if (response) {
-        console.log(response.data.hits);
+        // console.log(response.data.hits);
         setNews(response.data.hits);
         setIsLoading(false);
       }

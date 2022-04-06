@@ -16,7 +16,7 @@ export const createTable = () => {
     tx.executeSql(
       "CREATE TABLE IF NOT EXISTS "
       +"Users"
-      +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, email varChar(20), password varChar(20));",
+      +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, email varChar(20), password INTEGER);",
     );
   });
 };
