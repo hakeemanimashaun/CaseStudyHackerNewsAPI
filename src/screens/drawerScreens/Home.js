@@ -74,7 +74,7 @@ export default function Home({navigation}) {
   useEffect(() => {
     getUser();
     fetchNews();
-  }, []);
+  }, [page]);
 
   // this function implements delay
   const wait = timeout => new Promise(resolve => setTimeout(resolve, timeout));
